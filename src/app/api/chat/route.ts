@@ -2,6 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runAgent, AgentMessage } from '@/lib/agent';
 
+export const maxDuration = 60; // 60 second timeout for Vercel
+
 export async function POST(req: NextRequest) {
   try {
     const { message, history } = await req.json() as {
