@@ -38,7 +38,6 @@ async function mondayRequest(query: string, variables?: Record<string, unknown>)
   return data.data;
 }
 
-// ── Tool: Get all items from a board (paginated) ──────────────────────────────
 export async function getBoardItems(boardId: string, limit = 200): Promise<MondayItem[]> {
   const query = `
     query GetBoardItems($boardId: ID!, $limit: Int!) {
@@ -90,7 +89,6 @@ export async function getBoardItems(boardId: string, limit = 200): Promise<Monda
   return items;
 }
 
-// ── Tool: Get board column definitions ───────────────────────────────────────
 export async function getBoardColumns(boardId: string) {
   const query = `
     query GetBoardColumns($boardId: ID!) {
@@ -105,7 +103,6 @@ export async function getBoardColumns(boardId: string) {
   return data?.boards?.[0];
 }
 
-// ── Tool: Get board summary stats ─────────────────────────────────────────────
 export async function getBoardSummary(boardId: string) {
   const query = `
     query GetBoardSummary($boardId: ID!) {
@@ -121,7 +118,6 @@ export async function getBoardSummary(boardId: string) {
   return data?.boards?.[0];
 }
 
-// ── Tool: Search items by column value ───────────────────────────────────────
 export async function searchItemsByColumnValue(
   boardId: string,
   columnId: string,
@@ -147,7 +143,6 @@ export async function searchItemsByColumnValue(
   return data?.items_page_by_column_values?.items ?? [];
 }
 
-// ── Helper: Convert Monday items to plain objects ────────────────────────────
 export function itemsToObjects(items: MondayItem[]): Record<string, string>[] {
   return items.map((item) => {
     const obj: Record<string, string> = { _id: item.id, _name: item.name };
