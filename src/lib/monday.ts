@@ -71,8 +71,8 @@ export async function getBoardItems(boardId: string, limit = 200): Promise<Monda
   // Paginate through all items
   while (cursor) {
     const pageQuery = `
-      query GetNextPage($boardId: ID!, $limit: Int!, $cursor: String!) {
-        next_items_page(limit: $limit, cursor: $cursor) {
+      query GetNextPage($cursor: String!) {
+        next_items_page(limit: 200, cursor: $cursor) {
           cursor
           items {
             id
@@ -82,7 +82,7 @@ export async function getBoardItems(boardId: string, limit = 200): Promise<Monda
         }
       }
     `;
-    const pageData = await mondayRequest(pageQuery, { boardId, limit, cursor });
+    const pageData = await mondayRequest(pageQuery, { cursor });
     items = [...items, ...pageData.next_items_page.items];
     cursor = pageData.next_items_page.cursor;
   }
